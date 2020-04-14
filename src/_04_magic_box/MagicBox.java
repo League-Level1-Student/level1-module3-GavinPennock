@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -20,12 +21,15 @@ import javax.swing.SwingUtilities;
 
 public class MagicBox extends JPanel implements Runnable, MouseListener {
 
-	/*
-	 * We are going to hide secrets within the magic box. 
-	 * When the user clicks on a secret place, stuff will happen.
-	 * 
-	 * 1. Make the frame respond to mouse clicks.
-	 * 
+	MediaPalace name=new MediaPalace();
+	JFrame frame = new JFrame("The Magic Box contains many secrets...");
+	boolean boo=true;
+	 /*
+		 * We are going to hide secrets within the magic box. 
+		 * When the user clicks on a secret place, stuff will happen.
+		 * 
+		 * 1. Make the frame respond to mouse clicks.
+		 
 	 * 2. When the mouse is clicked, use the Media Palace (read the code in the magic_box package) to play sounds, 
 	 *    show images or speak.
 	 * 
@@ -48,12 +52,14 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	}
 
 	private void createUI() {
-		JFrame frame = new JFrame("The Magic Box contains many secrets...");
+	
 		frame.add(this);
 		setPreferredSize(new Dimension(backgroundImage.getWidth(), backgroundImage.getHeight()));
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		frame.addMouseListener(this);
+		
 	}
 
 	private void loadBackgroundImage() throws Exception {
@@ -67,36 +73,61 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 
 	@Override
 	public void paintComponent(Graphics g) {
+		if(boo) {
 		g.drawImage(backgroundImage, 0, 0, null);
+		}
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("mouse clicked");
+		System.out.println(e.getX()+"\n"+e.getY() );
+		if(e.getX()>189 && e.getX()< 204) {
+			if(e.getY()>531&&e.getY()<556) {
+				name.speak("don't hit me");
+			}
+		}
+		if(e.getX()>68 && e.getX()< 83) {
+			if(e.getY()>92&&e.getY()<106) {
+				try {
+					frame.add(name.loadImageFromTheInternet("https://sciplace.weebly.com/uploads/5/8/9/5/58952045/5208697_orig.jpg"));
+					frame.pack();
+					name.speak("booom!!! boom booooooooooom boom goodbye world! happy face");
+					boo=false;
+				} catch (MalformedURLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		}
+		if(e.getX()>323 && e.getX()< 345) {
+			if(e.getY()>160&&e.getY()<174) {
+				name.speak("yay! spinny spin!");
+			}
+		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		System.out.println("mouse pressed");
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		System.out.println("mouse released");
 		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+		System.out.println("mouse entered");
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+		System.out.println("mouse exited");
 		
 	}
 
