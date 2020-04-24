@@ -19,8 +19,7 @@ boolean intersectsPipes() {
 void draw(){
   if(intersectsPipes()){
     birdY=550;
-  }else if(intersectsPipes()==false){
-    score=score+1;
+    
   }
   if(mousePressed){
     birdY=birdY-13;
@@ -28,6 +27,7 @@ void draw(){
   if(pipeX<0){
     upperPipeHeight = (int) random(100, 400);
     pipeX=400;
+    score=score+1;
   }
   pipeX=pipeX-pipeMovement;
  background(#7FCDFC);
